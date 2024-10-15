@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400;1,700&family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap");
 html {
   /* Track */
   /* Handle */
@@ -42,8 +43,11 @@ html {
   max-width: 100%;
 }
 
+.container {
+  z-index: 999999;
+}
 .container .pre-loader {
-  z-index: 999;
+  z-index: 999999;
   position: fixed;
   top: 0;
   width: 100%;
@@ -52,6 +56,7 @@ html {
 }
 .container .pre-loader .loader {
   position: absolute;
+  z-index: 999999;
   top: 0;
   width: 100%;
   height: 100%;
@@ -63,12 +68,12 @@ html {
 }
 .container .pre-loader .loader-bg {
   position: absolute;
+  z-index: 999991;
   display: block;
   top: 0;
   width: 100%;
   height: 100%;
   background: red;
-  z-index: -1;
 }
 .container .loader-content {
   position: absolute;
@@ -77,7 +82,7 @@ html {
   transform: translate(-50%, -50%);
   display: flex;
   width: fit-content;
-  z-index: 999;
+  z-index: 999999;
   color: white;
 }
 .container .loader-content .count {
@@ -118,7 +123,7 @@ nav {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  z-index: 99;
+  z-index: 9999;
 }
 nav ul {
   display: flex;
@@ -134,30 +139,29 @@ nav ul a {
   color: white;
   outline: none;
   border: none;
+  transition: all 0.25s ease-in-out;
+}
+nav ul a:hover {
+  color: #f73c45;
+  transition: all 0.25s ease-in-out;
 }
 
 .main {
-  padding: 4rem 8rem;
-  min-height: 100vh;
-  width: calc(100% - 16rem);
+  height: 100vh;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: calc(100% - 16rem);
   position: relative;
-  padding-top: 250px;
 }
 .main__imgContainer {
   width: 100%;
   overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 .main__imgContainer img {
   height: 100vh;
   object-fit: cover;
-  object-fit: cover;
+  width: 100%;
   object-position: top center;
 }
 .main h1 {
@@ -178,33 +182,62 @@ nav ul a {
 }
 
 .about {
-  width: calc(100% - 16rem);
-  padding: 0 8rem 4rem;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  gap: 4rem;
-  height: calc(100vh - 7rem);
-}
-.about h2 {
-  font-size: 10vw;
-  font-family: "Bebas Neue";
-  padding: 0;
-  display: inline-block;
-  height: fit-content;
-}
-.about__content {
-  width: 65%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: flex-start;
+  height: fit-content;
+  background-color: #141414;
+  overflow: hidden;
+}
+.about h2 {
+  font-size: 8vw;
+  padding: 4vw 4vw 0;
+  font-family: "Bebas Neue";
+  display: inline-block;
+  height: fit-content;
+}
+.about__container {
+  display: flex;
+  justify-content: space-between;
+  height: calc(100vh - 7rem);
+}
+.about__content {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
   height: 100%;
+  position: relative;
+}
+.about__content:last-child {
+  justify-content: center;
 }
 .about__content p {
-  width: 100%;
+  padding: 0 10vw;
+  font-size: 1.25vw;
+  font-family: "DM Sans";
+  text-align: center;
+}
+.about__content__author {
+  display: flex;
+  gap: 10px;
+  padding-bottom: 4vw;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.about__content__author img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 50vw;
+}
+.about__content__author p {
+  text-decoration: dashed;
+  padding: 0;
   font-size: 1vw;
-  font-family: "Arvo";
 }
 .about__content__services {
   display: flex;
@@ -240,48 +273,120 @@ nav ul a {
   height: 100%;
   overflow: hidden;
   display: flex;
+  width: 50%;
   justify-content: center;
 }
 .about__img img {
-  clip-path: polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%);
-  height: 100%;
+  height: 120%;
   display: block;
   object-fit: contain;
   object-position: center center;
 }
 
+.captions {
+  position: relative;
+  background-color: #0d0d0d;
+}
+.captions::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 100%;
+  z-index: 99;
+  background-color: rgba(255, 255, 255, 0.15);
+}
+.captions__title {
+  padding: 110px 160px 220px;
+  z-index: 999;
+  position: relative;
+}
+.captions__title h2 {
+  text-transform: uppercase;
+  background-color: #0d0d0d;
+  padding: 40px;
+  z-index: 999;
+  font-size: 2vw;
+  font-family: "DM Sans";
+  font-weight: 600;
+  text-align: center;
+}
+.captions__container {
+  height: calc(100% - 900px);
+  padding: 0 8rem 12rem;
+}
+.captions__container__caption {
+  width: calc(50% - 16rem);
+  transform: translateY(-200px);
+  position: relative;
+  z-index: 99;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+}
+.captions__container__caption:not(:last-child) {
+  margin-bottom: 50px;
+}
+.captions__container__caption p {
+  font-size: 2.5vw;
+  margin-top: 20px;
+  text-align: center;
+  padding: 0 5vw;
+  background-color: #0d0d0d;
+}
+.captions__container__caption img {
+  width: 30%;
+  height: 100%;
+  object-fit: cover;
+}
+.captions__container__caption:nth-child(2) img {
+  width: 60%;
+}
+.captions__container__caption:nth-child(even) {
+  margin-left: auto;
+  flex-direction: row-reverse;
+}
+.captions__container__caption:nth-child(odd) {
+  flex-direction: row;
+}
+
 .work {
   width: calc(100% - 16rem);
-  padding: 0 8rem 4rem;
   min-height: 100vh;
+  padding: 0 8rem 8rem;
+  background-color: #141414;
+  display: flex;
+  justify-content: end;
+  flex-direction: column;
 }
 .work__titleContainer {
   height: fit-content;
   overflow: hidden;
-}
-.work h2 {
-  text-align: center;
   display: flex;
-  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 30vh;
 }
-.work h2 .char {
+.work__titleContainer h2 {
   font-size: 10vw;
-  font-family: "Bebas Neue";
-  width: 100%;
 }
-.work button {
+.work__titleContainer button {
   background: transparent;
   border: 1px solid white;
   outline: none;
   padding: 20px 40px;
+  height: fit-content;
   font-family: "Bebas Neue";
   font-size: 2vw;
-  margin: 40px auto 0;
+  border-radius: 50vw;
   display: block;
   transition: all 0.15s ease-in-out;
   width: fit-content;
 }
-.work button:hover {
+.work__titleContainer button:hover {
   background: white;
   color: black;
   cursor: pointer;
@@ -295,9 +400,11 @@ nav ul a {
   max-width: 100%;
   gap: 4rem;
   margin-top: 2rem;
+  overflow: hidden;
 }
 .work__imgs__container {
   position: relative;
+  max-height: 100%;
 }
 .work__imgs__container h3 {
   position: absolute;
@@ -312,12 +419,14 @@ nav ul a {
   width: 100%;
   height: auto;
   opacity: 1;
+  object-fit: cover;
+  object-position: center;
   filter: grayscale(100%);
 }
 
 .contact {
   width: calc(100% - 16rem);
-  padding: 0 8rem 4rem;
+  padding: 4rem 8rem;
 }
 .contact__links {
   display: flex;
@@ -335,7 +444,12 @@ nav ul a {
   font-size: 1.5rem;
 }
 .contact__links__container a {
+  transition: all 0.25s ease-in-out;
   text-decoration: none;
+}
+.contact__links__container a:hover {
+  color: #f73c45;
+  transition: all 0.25s ease-in-out;
 }
 .contact__links__container a,
 .contact__links__container p {
@@ -353,12 +467,14 @@ nav ul a {
   }
   .about__img {
     width: 100%;
-    height: auto;
+    height: 50vh;
   }
   .about__img img {
+    object-fit: cover;
     width: 100%;
   }
   .about__content {
+    gap: 40px;
     width: 100%;
   }
   .about__content h2 {
@@ -380,6 +496,12 @@ nav ul a {
   .about__content__services__service h4 {
     text-align: center;
     font-size: 5vw;
+  }
+  .captions__container__caption:not(:last-child) {
+    margin-bottom: 50px;
+  }
+  .work__titleContainer {
+    padding-top: 110px;
   }
   .work__imgs {
     flex-direction: column;
@@ -412,9 +534,9 @@ nav ul a {
     max-width: calc(100% - 8rem);
   }
   .about {
-    padding: 4rem 4rem;
-    width: calc(100% - 8rem);
-    max-width: calc(100% - 8rem);
+    padding: 2rem 2rem;
+    width: calc(100% - 4rem);
+    max-width: calc(100% - 4rem);
     padding-top: 2rem;
   }
   .about h2 {
@@ -423,15 +545,48 @@ nav ul a {
   .about p {
     font-size: 3vw;
   }
+  .captions {
+    padding: 0 2rem 2rem;
+  }
+  .captions__title {
+    padding: 0px 0 220px;
+  }
+  .captions__title h2 {
+    font-size: 4vw;
+  }
+  .captions__container {
+    padding: 0;
+    transform: translateY(-50px);
+    gap: 50px;
+    position: relative;
+    z-index: 999;
+  }
+  .captions__container__caption {
+    flex-direction: column !important;
+  }
+  .captions__container__caption img {
+    width: 100% !important;
+  }
+  .captions__container__caption p {
+    font-size: 20px;
+  }
   .work {
-    padding: 4rem 4rem;
-    width: calc(100% - 8rem);
-    max-width: calc(100% - 8rem);
+    padding: 2rem 2rem;
+    width: calc(100% - 4rem);
+    max-width: calc(100% - 4rem);
+  }
+  .work__titleContainer {
+    flex-direction: column;
+    gap: 40px;
+    padding-top: 0;
+  }
+  .work__titleContainer button {
+    width: 100%;
   }
   .contact {
-    padding: 4rem 4rem;
-    width: calc(100% - 8rem);
-    max-width: calc(100% - 8rem);
+    padding: 2rem 2rem;
+    width: calc(100% - 4rem);
+    max-width: calc(100% - 4rem);
   }
   .contact p,
   .contact a {

@@ -1,6 +1,33 @@
 import { gsap } from "gsap";
 import { ScrollTrigger, ScrollToPlugin } from "gsap/all.js";
 import Lenis from "@studio-freight/lenis";
+
+function updateSize() {
+  pageHeight = window.innerHeight;
+  pageWidth = window.innerWidth;
+}
+
+updateSize();
+window.addEventListener("resize", updateSize);
+// Scroll to top on init
+
+if (history.scrollRestoration) {
+  history.scrollRestoration = "manual";
+} else {
+  window.onbeforeunload = function () {
+    window.scrollTo(0, 0);
+  };
+}
+window.scrollTo(0, 0);
+window.addEventListener("load", function () {
+  window.scrollTo(0, 0);
+});
+window.onbeforeunload = function () {
+  window.scrollTo(0, 0);
+};
+document.documentElement.scrollTop = 0; // Para navegadores modernos
+document.body.scrollTop = 0; // Para navegadores más antiguos
+
 // Lenis
 const lenis = new Lenis({
   duration: 0.5,
@@ -38,21 +65,26 @@ gsap.to("main h1", {
     ease: "linear",
   },
 });
-gsap.fromTo(
-  ".about img",
-  { clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)" },
-  {
-    clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
-    ease: "power1.out",
-    duration: 1.5,
-    scrollTrigger: {
-      trigger: ".about__img",
-      start: "center bottom",
-      end: "bottom top",
-      toggleActions: "play none none none",
-    },
-  }
-);
+gsap.to(".about__container:first-child .about__img img", {
+  y: "-15%",
+  scrollTrigger: {
+    trigger: ".about__container:first-child .about__img",
+    start: "top bottom",
+    end: "bottom top",
+    scrub: true,
+  },
+});
+
+gsap.to(".about__container:last-child .about__img img", {
+  y: "-15%",
+  scrollTrigger: {
+    trigger: ".about__container:last-child .about__img",
+    start: "top bottom",
+    end: "bottom top",
+    scrub: true,
+  },
+});
+
 gsap.from(".about__content h2", {
   x: -500,
   scrollTrigger: {
@@ -63,85 +95,23 @@ gsap.from(".about__content h2", {
     toggleActions: "play none none none",
   },
 });
-gsap.from(".about__content p", {
-  y: 500,
+gsap.from(".about__container:first-child .about__content__quote", {
+  x: 500,
   scrollTrigger: {
-    trigger: ".about__content h2",
+    trigger: ".about__container:first-child .about__content h2",
     start: "top bottom",
     end: "50% 20%",
     scrub: true,
     toggleActions: "play none none none",
   },
 });
-// Obtén el elemento <p> con la clase "our-text"
-const paragraph = document.querySelector(".work h2");
-
-// Obtiene el contenido del párrafo
-const textContent = paragraph.textContent;
-
-// Crea un array de caracteres a partir del contenido
-const charArray = Array.from(textContent);
-
-// Crea un array de elementos <div> con la clase "char" y el contenido de cada caracter
-const divArray = charArray.map((char) => {
-  const divElement = document.createElement("div");
-  divElement.classList.add("char");
-  divElement.textContent = char;
-  return divElement;
-});
-
-// Reemplaza el contenido del párrafo con los elementos <div>
-paragraph.innerHTML = ""; // Limpia el contenido actual
-divArray.forEach((div) => {
-  paragraph.appendChild(div);
-});
-
-console.log("divArray", divArray);
-gsap.fromTo(
-  divArray,
-  {
-    y: 500,
-    opacity: 0,
-  },
-  {
-    y: 0,
-    opacity: 1,
-    stagger: 0.05,
-    scrollTrigger: {
-      trigger: ".work",
-      start: "10% bottom",
-      end: "+=100vh 50%",
-      scrub: true,
-      toggleActions: "play none none none",
-    },
-    duration: 2,
-    ease: "power4.out",
-  }
-);
-
-gsap.from(".work__imgs__container img", {
-  y: "300%",
-  ease: "power4.out",
-  opacity: 0,
-  stagger: 0.05,
+gsap.from(".about__container:last-child .about__content__quote", {
+  x: "100%",
   scrollTrigger: {
-    trigger: ".work",
-    start: "20% bottom",
-    end: "+=100vh 50%",
-    scrub: 1.5,
-    toggleActions: "play none none none",
-  },
-});
-gsap.from(".about__content__services__service", {
-  ease: "power4.out",
-  opacity: 0,
-  stagger: 0.05,
-  scrollTrigger: {
-    trigger: ".about__content__services__service",
-    start: "-50% bottom",
-    end: "50% 25%",
+    trigger: ".about__container:last-child .about__content",
+    start: "top bottom",
+    end: "50% 20%",
     scrub: true,
-    toggleActions: "play none none none",
   },
 });
 //loader
@@ -160,6 +130,37 @@ function startLoader() {
   }
   updatCounter();
 }
+
+gsap.from(".captions__container__caption:first-child", {
+  ease: "power4.out",
+  y: "200px",
+  stagger: 0.05,
+  opacity: 0,
+  scrollTrigger: {
+    trigger: ".captions__container__caption:first-child",
+    scrub: true,
+  },
+});
+gsap.from(".captions__container__caption:nth-child(2)", {
+  ease: "power4.out",
+  y: "200px",
+  stagger: 0.05,
+  opacity: 0,
+  scrollTrigger: {
+    trigger: ".captions__container__caption:nth-child(2)",
+    scrub: true,
+  },
+});
+gsap.from(".captions__container__caption:nth-child(3)", {
+  ease: "power4.out",
+  y: "200px",
+  stagger: 0.05,
+  opacity: 0,
+  scrollTrigger: {
+    trigger: ".captions__container__caption:nth-child(3)",
+    scrub: true,
+  },
+});
 startLoader();
 gsap.to(".count", { opacity: 0, delay: 3.5, duration: 0.5 });
 gsap.to(".mli6", { opacity: 0, delay: 3.5, duration: 0.5 });
@@ -208,4 +209,41 @@ gsap.to(".loader-bg", {
   duration: 1.5,
   zIndex: "-1",
   delay: 5,
+});
+gsap.from(".work__imgs__container img", {
+  y: "300%",
+  ease: "power4.out",
+  opacity: 0,
+  stagger: 0.05,
+  scrollTrigger: {
+    trigger: ".work__imgs__container",
+    start: "20% bottom",
+    end: "+=100vh 50%",
+    scrub: 1.5,
+  },
+});
+gsap.from(".captions__title h2", {
+  y: "150%",
+  duration: 0.25,
+  scrollTrigger: {
+    trigger: ".captions__title",
+    scrub: true,
+  },
+});
+
+gsap.from(".work__titleContainer h2", {
+  opacity: 0,
+  duration: 0.25,
+  scrollTrigger: {
+    trigger: ".work__titleContainer",
+    scrub: true,
+  },
+});
+gsap.from(".work__titleContainer button", {
+  opacity: 0,
+  duration: 0.25,
+  scrollTrigger: {
+    trigger: ".work__titleContainer",
+    scrub: true,
+  },
 });
